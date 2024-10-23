@@ -1,0 +1,3 @@
+[*.{ino,cc,hh}]
+indent_style = "spaces"
+indent_size = 2
