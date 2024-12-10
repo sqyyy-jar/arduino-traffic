@@ -125,9 +125,9 @@ traffic_t traffic = {
 	.stage_count = 1,
 };
 
-void setup() {
+void _setup() {
 	traffic_run(&traffic);
 }
 
-void loop() {
+void _loop() {
 }
