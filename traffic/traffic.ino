@@ -8,7 +8,7 @@
 // SCK	52
 
 #define CLIENT
-//#define TRAFFIC
+#define TRAFFIC
 #define MIN_RECV_DELAY 200
 #define PEDESTRIAN_DELAY 1000
 #define ORANGE_DELAY 1000
@@ -22,6 +22,12 @@ struct light2_t {
 	byte red;
 };
 
+struct light3_t {
+	byte green;
+	byte yellow;
+	byte red;
+};
+
 void light2_green(light2_t *light) {
 	digitalWrite(light->green, HIGH);
 	digitalWrite(light->red, LOW);
@@ -31,12 +37,6 @@ void light2_red(light2_t *light) {
 	digitalWrite(light->green, LOW);
 	digitalWrite(light->red, HIGH);
 }
-
-struct light3_t {
-	byte green;
-	byte yellow;
-	byte red;
-};
 
 void light3_green(light3_t *light) {
 	digitalWrite(light->red, LOW);
@@ -169,7 +169,7 @@ void setup(void) {
 }
 
 void handle_payload(void) {
-	switch (payload->signal) {
+	switch (payload.signal) {
 	case emergency_start:
 		next_state = emergency;
 		state_delay = 0;
@@ -278,7 +278,7 @@ void tick_broadcaster(void) {
 void tick_client(void) {
 	long start = millis();
 	long diff;
-	while (diff = millis() - start; diff < state_delay) {
+	while (diff = millis() - start, diff < state_delay) {
 		uint8_t port;
 		if (!radio.available(&port)) {
 			continue;
